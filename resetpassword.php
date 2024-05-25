@@ -71,10 +71,14 @@ echo $_GET["name"] ?>" method="post">
         $_SESSION["CSRF"] = Utils::generateString(25);
     }
     ?>
-    <h1 id="pw"><i class="fas fa-key">Set new Password</h1>
+    <h1 id="pw"><i class="fas fa-key"></i> Set new Password</h1>
     <input type="hidden" name="CSRFToken" value="<?php echo $_SESSION["CSRF"]; ?>">
-    <input type="password" name="password" placeholder="New Password" minlength="6" autocomplete="new-password" required><br>
-    <input type="password" name="password_repeat" placeholder="Repeat new Password" minlength="6" autocomplete="new-password" required><br>
+    <label>
+        <input type="password" name="password" placeholder="New Password" minlength="6" autocomplete="new-password" required>
+    </label><br>
+    <label>
+        <input type="password" name="password_repeat" placeholder="Repeat new Password" minlength="6" autocomplete="new-password" required>
+    </label><br>
     <button type="submit" name="submit">Set new Password</button><br>
 </form>
 </body>
