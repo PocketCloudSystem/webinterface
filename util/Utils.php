@@ -34,23 +34,22 @@ class Utils {
 
     public static function injectSideBar(): void {
         $currentFile = basename($_SERVER["REQUEST_URI"]);
-        $output = '<li' . ($currentFile == "index.php" ? ' class=active' : '') . '><a href="index.php"><i class="fas fa-home"></i> Overview</a></li>
-            <li' . ($currentFile == "players.php" ? ' class=active' : '') . '><a href="players.php"><i class="fas fa-search"></i> Players</a></li>
-            <li' . ($currentFile == "servers.php" ? ' class=active' : '') . '><a href="servers.php"><i class="fas fa-server"></i> Servers</a></li>
-            <li' . ($currentFile == "templates.php" ? ' class=active' : '') . '><a href="templates.php"><i class="fas fa-folder"></i> Templates</a></li>
+        $output = '<li' . ($currentFile == "index.php" ? ' class=active' : '') . '><a href="index.php"><i class="fa-solid fa-home"></i> Overview</a></li>
+            <li' . ($currentFile == "players.php" ? ' class=active' : '') . '><a href="players.php"><i class="fa-solid fa-search"></i> Players</a></li>
+            <li' . ($currentFile == "servers.php" ? ' class=active' : '') . '><a href="servers.php"><i class="fa-solid fa-server"></i> Servers</a></li>
+            <li' . ($currentFile == "templates.php" ? ' class=active' : '') . '><a href="templates.php"><i class="fa-solid fa-folder"></i> Templates</a></li>
             <li' . ($currentFile == "modules.php" ? ' class=active' : '') . '><a href="modules.php"><i class="fa-solid fa-brain"></i> Modules</a></li>
-            <li' . ($currentFile == "plugins.php" ? ' class=active' : '') . '><a href="plugins.php"><i class="fa-solid fa-plug"></i> Plugins</a></li>
         ';
 
         if (RestAPI::isAdmin($_SESSION["username"])) {
-            $output .= '<li' . ($currentFile == "accounts.php" ? ' class=active' : '') . '><a href="accounts.php"><i class="fas fa-users"></i> Accounts</a></li>';
+            $output .= '<li' . ($currentFile == "accounts.php" ? ' class=active' : '') . '><a href="accounts.php"><i class="fa-solid fa-users"></i> Accounts</a></li>';
         }
 
         echo $output;
     }
 
     public static function injectHeader(): void {
-        $output = '<i class="fas fa-bars fa-2x menu mobileicon"></i>';
+        $output = '<i class="fa-solid fa-bars fa-2x menu mobileicon"></i>';
         $output .= '<a href="logout.php"><i class="fa-solid fa-right-from-bracket fa-2x headericon"></i></a>';
         $output .= '<a href="https://discord.gg/3HbPEpaE3T"><i class="fa-brands fa-discord fa-2x headericon"></i></a>';
         $output .= '<a href="https://github.com/PocketCloudSystem"><i class="fa-brands fa-github fa-2x headericon"></i></a>';
