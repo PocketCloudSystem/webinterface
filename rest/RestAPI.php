@@ -308,8 +308,10 @@ class RestAPI {
                 "GET",
                 ["server" => $server, "type" => $type]
             );
-            return $response["logs"] ?? [];
-        } catch (\Exception) {
+
+            return $response[2]["logs"] ?? [];
+        } catch (\Exception $e) {
+            error_log("Error fetching server logs: " . $e->getMessage());
             return [];
         }
     }
