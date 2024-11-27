@@ -300,4 +300,19 @@ class RestAPI {
     public static function getDisabledPlugins(): array {
         return self::getPlugins()["disabledPlugins"] ?? [];
     }
+
+    public static function getServerLogs(string $server, int $type = 0): array {
+        try {
+            $response = self::createRequest(
+                "server/logs/",
+                "GET",
+                ["server" => $server, "type" => $type]
+            );
+
+            return $response[2]["logs"] ?? [];
+        } catch (\Exception $e) {
+            error_log("Error fetching server logs: " . $e->getMessage());
+            return [];
+        }
+    }
 }

@@ -152,9 +152,8 @@ if ($_GET["type"] == "SEARCH") {
 } else if ($_GET["type"] == "SERVER_CONSOLE") {
     if (!empty($_GET["server"]) && !empty($_GET["templateType"])) {
         $output = "";
-        foreach (Utils::getServerLogs($_GET["server"], $_GET["templateType"] == "PROXY" ? 1 : 0) as $log) {
-            $output .= "<p style='padding: 2px; margin: 2px;'>" . clean(str_replace(["<", ">"], ["&lt;", "&gt;"], $log)) . "</p>";
-        }
+        $log = Utils::getServerLogs($_GET["server"], $_GET["templateType"] == "PROXY" ? 1 : 0);
+        $output .= "<p style='padding: 2px; margin: 2px;'>" . clean(str_replace(["<", ">"], ["&lt;", "&gt;"], $log)) . "</p>";
 
         echo $output;
     }
