@@ -89,7 +89,7 @@ if (!Utils::checkCloudStatus()) {
                     isset($_POST["maintenance"]) &&
                     isset($_POST["static"]) &&
                     isset($_POST["autoStart"]) &&
-                    isset($_POST["startNewWhenFull"]) &&
+                    isset($_POST["startNewPercentage"]) &&
                     isset($_POST["maxPlayerCount"]) &&
                     isset($_POST["minServerCount"]) &&
                     isset($_POST["maxServerCount"])
@@ -98,7 +98,7 @@ if (!Utils::checkCloudStatus()) {
                         $_POST["templateType"],
                         $_POST["lobby"] == "true", $_POST["maintenance"] == "true", $_POST["static"] == "true",
                         intval($_POST["maxPlayerCount"]), intval($_POST["minServerCount"]), intval($_POST["maxServerCount"]),
-                        $_POST["startNewWhenFull"] == "true", $_POST["autoStart"] == "true"
+                        floatval($_POST["startNewPercentage"]), $_POST["autoStart"] == "true"
                     )) {
                         Utils::showModal("SUCCESS", "Success!", "The template has been created!");
                     } else Utils::showModal("ERROR", "Action failed.", "A template with that name already exists!");
@@ -174,11 +174,9 @@ if (!Utils::checkCloudStatus()) {
                             <option value="false">Servers shouldn't start automatically</option>
                         </select>
                     </label>
+                    <p>Start New Percentage</p>
                     <label>
-                        <select name="startNewWhenFull">
-                            <option value="true">New servers should start automatically when a server is full</option>
-                            <option value="false">New servers shouldn't start automatically when a server is full</option>
-                        </select>
+                        <input type="number" name="startNewPercentage" value="100" required>
                     </label>
                     <p>Max Player Count</p>
                     <label>

@@ -93,7 +93,7 @@ class RestAPI {
         return false;
     }
 
-    public static function createTemplate(string $name, string $type, bool $lobby, bool $maintenance, bool $static, int $maxPlayerCount, int $minServerCount, int $maxServerCount, bool $startNewWhenFull, bool $autoStart): bool {
+    public static function createTemplate(string $name, string $type, bool $lobby, bool $maintenance, bool $static, int $maxPlayerCount, int $minServerCount, int $maxServerCount, float $startNewPercentage, bool $autoStart): bool {
         try {
             $response = self::createRequest("template/create/", "POST", [
                 "name" => $name,
@@ -104,7 +104,7 @@ class RestAPI {
                 "maxPlayerCount" => $maxPlayerCount,
                 "minServerCount" => $minServerCount,
                 "maxServerCount" => $maxServerCount,
-                "startNewWhenFull" => ($startNewWhenFull ? "true" : "false"),
+                "startNewPercentage" => $startNewPercentage,
                 "autoStart" => ($autoStart ? "true" : "false")
             ])[2] ?? [];
             return is_array($response) && isset($response["success"]);
@@ -112,7 +112,7 @@ class RestAPI {
         return false;
     }
 
-    public static function editTemplate(string $template, ?bool $lobby, ?bool $maintenance, ?bool $static, ?int $maxPlayerCount, ?int $minServerCount, ?int $maxServerCount, ?bool $startNewWhenFull, ?bool $autoStart): bool {
+    public static function editTemplate(string $template, ?bool $lobby, ?bool $maintenance, ?bool $static, ?int $maxPlayerCount, ?int $minServerCount, ?int $maxServerCount, ?float $startNewPercentage, ?bool $autoStart): bool {
         $queries = ["name" => $template];
         if ($lobby !== null) $queries["lobby"] = ($lobby ? "true" : "false");
         if ($maintenance !== null) $queries["maintenance"] = ($maintenance ? "true" : "false");
@@ -120,7 +120,7 @@ class RestAPI {
         if ($maxPlayerCount !== null) $queries["maxPlayerCount"] = $maxPlayerCount;
         if ($minServerCount !== null) $queries["minServerCount"] = $minServerCount;
         if ($maxServerCount !== null) $queries["maxServerCount"] = $maxServerCount;
-        if ($startNewWhenFull !== null) $queries["startNewWhenFull"] = ($startNewWhenFull ? "true" : "false");
+        if ($startNewPercentage !== null) $queries["startNewPercentage"] = $startNewPercentage;
         if ($autoStart !== null) $queries["autoStart"] = ($autoStart ? "true" : "false");
         try {
             $response = self::createRequest("template/edit/", "PATCH", $queries)[2] ?? [];

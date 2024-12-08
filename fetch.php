@@ -201,7 +201,7 @@ if ($_GET["type"] == "SEARCH") {
         $output .= "<td>" . $data["maxPlayerCount"] . ($data["maxPlayerCount"] == 1 ? " Player" : " Players") . "</td>";
         $output .= "<td>" . $data["minServerCount"] . ($data["minServerCount"] == 1 ? " Server" : " Servers") . "</td>";
         $output .= "<td>" . $data["maxServerCount"] . ($data["maxServerCount"] == 1 ? " Server" : " Servers") . "</td>";
-        $output .= "<td>" . ($data["startNewWhenFull"] ? "<p style='color: limegreen;'>Yes</p>" : "<p style='color: red;'>No</p>") . "</td>";
+        $output .= "<td>" . $data["startNewPercentage"] . "%" . "</td>";
         $output .= "<td>" . ($data["autoStart"] ? "<p style='color: limegreen;'>Yes</p>" : "<p style='color: red;'>No</p>") . "</td>";
         echo $output;
     }

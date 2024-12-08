@@ -98,7 +98,7 @@ if (!RestAPI::isAdmin($_SESSION['username'])) {
                             isset($_POST["maintenance"]) &&
                             isset($_POST["static"]) &&
                             isset($_POST["autoStart"]) &&
-                            isset($_POST["startNewWhenFull"]) &&
+                            isset($_POST["startNewPercentage"]) &&
                             isset($_POST["maxPlayerCount"]) &&
                             isset($_POST["minServerCount"]) &&
                             isset($_POST["maxServerCount"])
@@ -106,7 +106,7 @@ if (!RestAPI::isAdmin($_SESSION['username'])) {
                             if (RestAPI::editTemplate($name,
                                 $_POST["lobby"] == "true", $_POST["maintenance"] == "true", $_POST["static"] == "true",
                                 intval($_POST["maxPlayerCount"]), intval($_POST["minServerCount"]), intval($_POST["maxServerCount"]),
-                                $_POST["startNewWhenFull"] == "true", $_POST["autoStart"] == "true"
+                                (is_numeric($_POST["startNewPercentage"]) ? max(0, floatval($_POST["startNewPercentage"])) : 0), $_POST["autoStart"] == "true"
                             )) {
                                 Utils::showModalRedirect("SUCCESS", "Success!", "The template has been edited!", "template.php?template=" . $name);
                             } else Utils::showModalRedirect("ERROR", "Action failed.", "A template couldn't be edited!", "template.php?template=" . $name);
@@ -191,22 +191,9 @@ if (!RestAPI::isAdmin($_SESSION['username'])) {
                                 ?>
                             </select>
                         </label>
+                        <p>Start New Percentage</p>
                         <label>
-                            <select name="startNewWhenFull">
-                                <?php
-                                if ($data["startNewWhenFull"]) {
-                                    ?>
-                                    <option value="true">New servers should start automatically when a server is full</option>
-                                    <option value="false">New servers shouldn't start automatically when a server is full</option>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <option value="false">New servers shouldn't start automatically when a server is full</option>
-                                    <option value="true">New servers should start automatically when a server is full</option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
+                            <input type="number" name="startNewPercentage" value="<?php echo $data["startNewPercentage"]; ?>" required>
                         </label>
                         <p>Max Player Count</p>
                         <label>
