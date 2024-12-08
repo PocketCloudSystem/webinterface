@@ -106,10 +106,16 @@ class Utils {
     }
 
     public static function checkCloudStatus(): bool {
-        if (!file_exists($path = Utils::cloudPath() . "/storage/cloud.lock")) return false;
-        $file = fopen($path, "r");
-        if ($file === false) return false;
-        if (!flock($file, LOCK_EX | LOCK_NB)) return true;
+        $host = self::cloudHttpHost();
+        $port = self::cloudHttpPort();
+
+        $socket = @fsockopen($host, $port, $errno, $errStr, 2);
+
+        if ($socket) {
+            fclose($socket);
+            return true;
+        }
+
         return false;
     }
 
@@ -118,16 +124,5 @@ class Utils {
         $string = "";
         for ($i = 0; $i < $length; $i++) $string .= $characters[mt_rand(0, (strlen($characters) - 1))];
         return $string;
-    }
-
-    public static function getServerLogs(string $server, int $type = 0): ?array {
-        if (file_exists($basePath = self::cloudPath() . "/tmp/" . $server . "/")) {
-            if ($type == 0) {
-                return explode("\n", file_get_contents($basePath . "server.log"));
-            } else {
-                return explode("\n", file_get_contents($basePath . "logs/server.log"));
-            }
-        }
-        return null;
     }
 }

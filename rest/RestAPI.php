@@ -201,6 +201,15 @@ class RestAPI {
         return null;
     }
 
+    public static function getServerLogs(string $server, int $type = 0): array {
+        try {
+            $response = self::createRequest("server/logs/", "GET", ["server" => $server, "type" => $type]);
+            return $response["logs"] ?? [];
+        } catch (\Exception) {
+            return [];
+        }
+    }
+
     public static function getPlayerData(string $player): ?array {
         try {
             $response = self::createRequest("player/get/", "GET", ["identifier" => $player])[2] ?? [];
