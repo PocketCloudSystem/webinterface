@@ -1,4 +1,4 @@
-# Webinterface
+# Webinterface [discontinued]
 Webinterface for PocketCloud,
 
 ## Requirements
